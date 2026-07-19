@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="container">
+  <div class="topbar">
+    <h1>Kelola User</h1>
+    <a class="link" href="dashboard.html">&larr; Kembali ke Dashboard</a>
+  </div>
+
+  <div class="card">
+    <h3>Tambah User Baru</h3>
+    <input id="username" placeholder="Username" />
+    <input id="password" type="password" placeholder="Password" />
+    <select id="role">
+      <option value="user">User biasa</option>
+      <option value="admin">Admin</option>
+    </select>
+    <button class="btn-primary" onclick="createUser()">Tambah User</button>
+    <p id="msg" class="error"></p>
+  </div>
+
+  <div class="card">
+    <h3>Daftar User</h3>
+    <div id="userList">Memuat...</div>
+  </div>
+</div>
+<script src="js/admin.js"></script>
+</body>
+</html>

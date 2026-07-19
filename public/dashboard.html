@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="container">
+  <div class="topbar">
+    <h1>My Panel</h1>
+    <div>
+      <span id="whoami"></span> &nbsp;
+      <a class="link" id="adminLink" style="display:none" href="admin.html">Admin</a> &nbsp;
+      <a class="link" onclick="logout()">Logout</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Buat Instance Baru</h3>
+    <input id="newName" placeholder="Nama instance (mis. Bot Discord Aku)" />
+    <input id="newEntry" placeholder="Entry file (mis. index.js)" value="index.js" />
+    <button class="btn-primary" onclick="createInstance()">Buat</button>
+    <p id="createMsg" class="error"></p>
+  </div>
+
+  <div class="card">
+    <h3>Instance Kamu</h3>
+    <div id="instanceList">Memuat...</div>
+  </div>
+
+  <div class="card" id="consoleCard" style="display:none">
+    <div class="topbar">
+      <h3 id="consoleTitle">Console</h3>
+      <div>
+        <input type="file" id="uploadFile" style="width:auto; display:inline; margin:0" />
+        <button class="btn-secondary" onclick="uploadFile()">Upload</button>
+      </div>
+    </div>
+    <div class="console" id="consoleOutput"></div>
+    <div style="margin-top:10px">
+      <button class="btn-primary" onclick="doAction('start')">Start</button>
+      <button class="btn-secondary" onclick="doAction('restart')">Restart</button>
+      <button class="btn-danger" onclick="doAction('stop')">Stop</button>
+    </div>
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

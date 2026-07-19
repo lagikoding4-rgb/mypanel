@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Login - My Panel</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="container" style="max-width:400px; margin-top:80px;">
+  <div class="card">
+    <h1>Login Panel</h1>
+    <p id="msg" class="error"></p>
+    <input id="username" placeholder="Username" />
+    <input id="password" type="password" placeholder="Password" />
+    <button class="btn-primary" onclick="login()" style="width:100%">Login</button>
+  </div>
+</div>
+<script>
+async function login() {
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  const res = await fetch('/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password }),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    document.getElementById('msg').textContent = data.error;
+    return;
+  }
+  location.href = 'dashboard.html';
+}
+</script>
+</body>
+</html>
