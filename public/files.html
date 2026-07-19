@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>File Manager</title>
+<link rel="stylesheet" href="style.css" />
+<style>
+  .fm-toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .fm-toolbar button, .fm-toolbar label {
+    background: #21262d; color: #e6edf3; border: 1px solid #30363d;
+    padding: 9px 14px; border-radius: 8px; font-weight: 600; cursor: pointer;
+    font-size: 14px; display: inline-block;
+  }
+  .fm-toolbar input[type=file] { display: none; }
+  .breadcrumb { margin-bottom: 12px; color: #8b949e; }
+  .breadcrumb a { color: #58a6ff; cursor: pointer; }
+  .fm-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; border-bottom: 1px solid #30363d;
+  }
+  .fm-row input[type=checkbox] { flex-shrink: 0; }
+  .fm-name { flex: 1; cursor: pointer; overflow-wrap: anywhere; }
+  .fm-name.folder { color: #58a6ff; font-weight: 600; }
+  .fm-actions { display: flex; gap: 6px; flex-shrink: 0; }
+  .fm-actions button {
+    background: none; border: none; color: #8b949e; font-size: 13px;
+    cursor: pointer; padding: 4px 6px;
+  }
+  .fm-actions button:hover { color: #e6edf3; }
+  .selected-bar {
+    display: none; background: #1f6feb22; border: 1px solid #1f6feb;
+    padding: 10px; border-radius: 8px; margin-bottom: 10px; gap: 8px; flex-wrap: wrap;
+  }
+  .selected-bar.show { display: flex; }
+  .selected-bar button { padding: 6px 12px; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="topbar">
+    <h1 id="pageTitle">File Manager</h1>
+    <a class="link" href="dashboard.html">&larr; Kembali</a>
+  </div>
+
+  <div class="card">
+    <div class="fm-toolbar">
+      <label>Buat Folder<input type="button" id="btnMkdir" style="display:none"></label>
+      <label>File Baru<input type="button" id="btnNewFile" style="display:none"></label>
+      <label>Upload File<input type="file" id="fileUpload"></label>
+      <label>Upload &amp; Extract ZIP<input type="file" id="zipUpload" accept=".zip"></label>
+      <button id="btnNpmInstall">Jalanin npm install</button>
+    </div>
+
+    <div class="breadcrumb" id="breadcrumb"></div>
+
+    <div class="selected-bar" id="selectedBar">
+      <span id="selectedCount" style="align-self:center; margin-right:8px;"></span>
+      <button onclick="archiveSelected()" style="background:#388bfd; color:white;">Jadikan ZIP</button>
+      <button onclick="deleteSelected()" style="background:#da3633; color:white;">Hapus</button>
+      <button onclick="clearSelection()" style="background:#6e7681; color:white;">Batal</button>
+    </div>
+
+    <p id="fmMsg" class="error"></p>
+    <div id="fileList">Memuat...</div>
+  </div>
+</div>
+<script src="js/files.js"></script>
+</body>
+</html>

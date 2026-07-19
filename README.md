@@ -34,8 +34,13 @@ Akun admin default otomatis dibuat saat pertama kali jalan:
 3. Login sebagai user itu (atau tetap sebagai admin) → **buat instance baru**:
    - Nama bebas, misal "Bot Discord Aku"
    - Entry file: nama file utama yang mau dijalankan, misal `index.js`
-4. Klik **Buka** pada instance itu → upload file `index.js` (dan file pendukung lain kalau perlu — upload satu-satu dulu, atau nanti kita bisa tambah upload folder/zip).
-5. Klik **Start** → proses Node.js beneran jalan, log muncul real-time di console.
+4. Klik **Files** pada instance itu buat masuk ke File Manager:
+   - **Upload File**: upload 1 file biasa apa adanya
+   - **Upload & Extract ZIP**: upload file `.zip` berisi seluruh project (folder commands/events/dll), otomatis di-extract, file zip aslinya kehapus setelah extract
+   - **Buat Folder** / **File Baru**: bikin struktur folder manual
+   - Centang file/folder → bisa **Jadikan ZIP** (compress) atau **Hapus** sekaligus banyak
+   - Tombol **Jalanin npm install**: install semua dependency dari `package.json` di instance itu (progress-nya keliatan di halaman Console)
+5. Balik ke dashboard, klik **Buka** pada instance itu → klik **Start** → proses Node.js beneran jalan, log muncul di console (di-refresh tiap 2 detik).
 6. **Stop** / **Restart** kapan saja.
 
 ## Yang PERLU Kamu Ganti Sebelum Dipakai Serius

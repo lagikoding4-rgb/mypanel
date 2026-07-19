@@ -35,6 +35,7 @@ async function loadInstances() {
       </div>
       <div>
         <button class="btn-secondary" onclick="openConsole(${i.id}, '${i.name}')">Buka</button>
+        <button class="btn-secondary" onclick="openFiles(${i.id}, '${i.name}')">Files</button>
         <button class="btn-danger" onclick="deleteInstance(${i.id})">Hapus</button>
       </div>
     </div>
@@ -64,6 +65,10 @@ async function deleteInstance(id) {
   if (!confirm('Yakin mau hapus instance ini?')) return;
   await fetch('/api/instances/' + id, { method: 'DELETE' });
   loadInstances();
+}
+
+function openFiles(id, name) {
+  location.href = `files.html?id=${id}&name=${encodeURIComponent(name)}`;
 }
 
 async function openConsole(id, name) {

@@ -25,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/admin', require('./routes/admin'));
 app.use('/api/instances', require('./routes/instances'));
+app.use('/api/instances', require('./routes/files'));
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
