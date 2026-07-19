@@ -47,6 +47,29 @@ router.post('/', (req, res) => {
   res.json({ ok: true, id: newId });
 });
 
+// Detail 1 instance
+router.get('/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const inst = ownedInstance(req, id);
+  if (!inst) return res.status(404).json({ error: 'Instance tidak ditemukan.' });
+  res.json({ ...inst, running: pm.isRunning(id) });
+});
+
+// Update nama / entry file
+router.patch('/:id', (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const inst = ownedInstance(req, id);
+  if (!inst) return res.status(404).json({ error: 'Instance tidak ditemukan.' });
+
+  const { name, entryFile } = req.body;
+  const updates = {};
+  if (name) updates.name = name;
+  if (entryFile) updates.entryFile = entryFile;
+
+  db.get('instances').find({ id }).assign(updates).write();
+  res.json({ ok: true });
+});
+
 // Hapus instance
 router.delete('/:id', (req, res) => {
   const id = parseInt(req.params.id, 10);
