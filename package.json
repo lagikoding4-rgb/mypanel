@@ -14,7 +14,6 @@
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "lowdb": "^1.0.0",
-    "multer": "^2.2.0",
-    "socket.io": "^4.8.3"
+    "multer": "^2.2.0"
   }
 }

@@ -1,6 +1,7 @@
 let me = null;
 let currentInstanceId = null;
-const socket = io();
+let logPollTimer = null;
+let lastLogCount = 0;
 
 async function init() {
   const res = await fetch('/api/auth/me');
@@ -67,24 +68,31 @@ async function deleteInstance(id) {
 
 async function openConsole(id, name) {
   currentInstanceId = id;
+  lastLogCount = 0;
   document.getElementById('consoleCard').style.display = 'block';
   document.getElementById('consoleTitle').textContent = 'Console: ' + name;
   document.getElementById('consoleOutput').textContent = '';
 
-  socket.emit('join', { instanceId: id, userId: me.id, role: me.role });
+  await refreshLogs();
 
-  const res = await fetch(`/api/instances/${id}/logs`);
-  const logs = await res.json();
-  const out = document.getElementById('consoleOutput');
-  out.textContent = logs.join('');
-  out.scrollTop = out.scrollHeight;
+  if (logPollTimer) clearInterval(logPollTimer);
+  logPollTimer = setInterval(refreshLogs, 2000); // cek log baru tiap 2 detik
 }
 
-socket.on('log', (line) => {
-  const out = document.getElementById('consoleOutput');
-  out.textContent += line;
-  out.scrollTop = out.scrollHeight;
-});
+async function refreshLogs() {
+  if (!currentInstanceId) return;
+  const res = await fetch(`/api/instances/${currentInstanceId}/logs`);
+  if (!res.ok) return;
+  const logs = await res.json();
+
+  // cuma update kalau ada baris baru, biar gak flicker & gak boros render
+  if (logs.length !== lastLogCount) {
+    lastLogCount = logs.length;
+    const out = document.getElementById('consoleOutput');
+    out.textContent = logs.join('');
+    out.scrollTop = out.scrollHeight;
+  }
+}
 
 async function doAction(action) {
   if (!currentInstanceId) return;
